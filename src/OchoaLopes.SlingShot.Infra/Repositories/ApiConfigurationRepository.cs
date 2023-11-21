@@ -5,9 +5,9 @@ using OchoaLopes.SlingShot.Domain.Interfaces.Repositories;
 
 namespace OchoaLopes.SlingShot.Infra.Repositories
 {
-    public class KafkaConfigurationRepository : Repository<KafkaConfigurationEntity>, IKafkaConfigurationRepository
+    public class ApiConfigurationRepository : Repository<ApiConfigurationEntity>, IApiConfigurationRepository
     {
-        public KafkaConfigurationRepository(ILogger<IRepository<KafkaConfigurationEntity>> logger, DbContext context) : base(logger, context)
+        public ApiConfigurationRepository(ILogger<IRepository<ApiConfigurationEntity>> logger, DbContext context) : base(logger, context)
         {
         }
     }

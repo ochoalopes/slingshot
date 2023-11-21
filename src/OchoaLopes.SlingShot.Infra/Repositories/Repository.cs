@@ -9,14 +9,14 @@ namespace OchoaLopes.SlingShot.Infra.Repositories
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
         #region Properties
-        private readonly ILogger<Repository<TEntity>> _logger;
+        private readonly ILogger<IRepository<TEntity>> _logger;
 
         protected readonly DbContext _context;
         protected readonly DbSet<TEntity> _dbSet;
         #endregion
 
         #region Public Methods
-        public Repository(ILogger<Repository<TEntity>> logger, DbContext context)
+        public Repository(ILogger<IRepository<TEntity>> logger, DbContext context)
         {
             _logger = logger;
             _context = context;

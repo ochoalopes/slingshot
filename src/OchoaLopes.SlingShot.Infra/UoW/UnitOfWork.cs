@@ -1,25 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
-using OchoaLopes.SlingShot.Domain.Interfaces.Repositories;
 
 namespace OchoaLopes.SlingShot.Infra.UoW
 {
-    public class UnitOfWork
+    public abstract class UnitOfWork
     {
-        #region Properties
+        #region Private Properties
         private bool _disposed = false;
         private readonly ILogger<UnitOfWork> _logger;
         private readonly DbContext _context;
-        private readonly IKafkaConfigurationRepository _kafkaConfigurationRepository;
         #endregion
 
         #region Public Methods
-        public UnitOfWork(ILogger<UnitOfWork> logger, DbContext context, IKafkaConfigurationRepository kafkaConfigurationRepository)
+        public UnitOfWork(ILogger<UnitOfWork> logger, DbContext context)
         {
             _logger = logger;
             _context = context;
-            _kafkaConfigurationRepository = kafkaConfigurationRepository;
         }
 
         public IDbContextTransaction CreateTransaction()
