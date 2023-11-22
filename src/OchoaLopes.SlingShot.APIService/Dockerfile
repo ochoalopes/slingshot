@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["src/OchoaLopes.SlingShot.APIService/OchoaLopes.SlingShot.APIService.csproj", "src/OchoaLopes.SlingShot.APIService/"]
-RUN dotnet restore "src/OchoaLopes.SlingShot.APIService/OchoaLopes.SlingShot.APIService.csproj"
+COPY ["src/OchoaLopes.SlingShot.ApiService/OchoaLopes.SlingShot.ApiService.csproj", "src/OchoaLopes.SlingShot.ApiService/"]
+RUN dotnet restore "src/OchoaLopes.SlingShot.ApiService/OchoaLopes.SlingShot.ApiService.csproj"
 COPY . .
-WORKDIR "/src/src/OchoaLopes.SlingShot.APIService"
-RUN dotnet build "OchoaLopes.SlingShot.APIService.csproj" -c Release -o /app/build
+WORKDIR "/src/src/OchoaLopes.SlingShot.ApiService"
+RUN dotnet build "OchoaLopes.SlingShot.ApiService.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "OchoaLopes.SlingShot.APIService.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "OchoaLopes.SlingShot.ApiService.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "OchoaLopes.SlingShot.APIService.dll"]
+ENTRYPOINT ["dotnet", "OchoaLopes.SlingShot.ApiService.dll"]

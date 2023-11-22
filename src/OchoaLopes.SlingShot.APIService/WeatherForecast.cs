@@ -1,4 +1,4 @@
-namespace OchoaLopes.SlingShot.APIService
+namespace OchoaLopes.SlingShot.ApiService
 {
     public class WeatherForecast
     {

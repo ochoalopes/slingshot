@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace OchoaLopes.SlingShot.APIService.Controllers
+namespace OchoaLopes.SlingShot.ApiService.Controllers
 {
     [ApiController]
     [Route("[controller]")]

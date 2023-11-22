@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OchoaLopes.SlingShot.CrossC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OchoaLopes.SlingShot.Tests", "test\OchoaLopes.SlingShot.Tests\OchoaLopes.SlingShot.Tests.csproj", "{7E232351-CEC2-471C-8D3F-A1AFF7EE0778}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OchoaLopes.SlingShot.WorkerService", "src\OchoaLopes.SlingShot.WorkerService\OchoaLopes.SlingShot.WorkerService.csproj", "{C8FB4EFA-0CFE-4600-BDBD-B5C5C3133A40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OchoaLopes.SlingShot.WorkerService", "src\OchoaLopes.SlingShot.WorkerService\OchoaLopes.SlingShot.WorkerService.csproj", "{C8FB4EFA-0CFE-4600-BDBD-B5C5C3133A40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OchoaLopes.SlingShot.APIService", "src\OchoaLopes.SlingShot.APIService\OchoaLopes.SlingShot.APIService.csproj", "{0A193A58-290B-409C-98B1-1FAD7373E6AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OchoaLopes.SlingShot.ApiService", "src\OchoaLopes.SlingShot.APIService\OchoaLopes.SlingShot.ApiService.csproj", "{0A193A58-290B-409C-98B1-1FAD7373E6AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "OchoaLopes.SlingShot.APIService": {
+    "OchoaLopes.SlingShot.ApiService": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
