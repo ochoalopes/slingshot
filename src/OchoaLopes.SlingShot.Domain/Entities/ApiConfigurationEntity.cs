@@ -2,9 +2,9 @@
 {
     public class ApiConfigurationEntity : Entity
     {
-        public ApiConfigurationEntity(string baseUrl)
+        public ApiConfigurationEntity(Guid id, string baseUrl) : base(id)
         {
-            Id = Guid.NewGuid();
+            Id = id;
             BaseUrl = baseUrl;
         }
 

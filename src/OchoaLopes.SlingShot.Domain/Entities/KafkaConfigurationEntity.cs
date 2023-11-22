@@ -2,14 +2,17 @@
 {
     public class KafkaConfigurationEntity : Entity
     {
-        public KafkaConfigurationEntity()
+        public KafkaConfigurationEntity(Guid id, string bootstrapServers, string topic, string groupId) : base(id)
         {
-            Id = Guid.NewGuid();
+            Id = id;
+            BootstrapServers = bootstrapServers;
+            Topic = topic;
+            GroupId = groupId;
         }
 
-        public string? BootstrapServers { get; set; }
-        public string? Topic { get; set; }
-        public string? GroupId { get; set; }
+        public string BootstrapServers { get; set; }
+        public string Topic { get; set; }
+        public string GroupId { get; set; }
         public string? AutoOffsetReset { get; set; }
         public bool EnableAutoCommit { get; set; }
         public string? SecurityProtocol { get; set; }

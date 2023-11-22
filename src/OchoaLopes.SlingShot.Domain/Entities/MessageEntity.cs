@@ -4,7 +4,7 @@ namespace OchoaLopes.SlingShot.Domain.Entities
 {
     public class MessageEntity : Entity
     {
-        public MessageEntity(Guid id, string content, MessageTypeEnum type, DateTime createAt, string origin)
+        public MessageEntity(Guid id, string content, MessageTypeEnum type, DateTime createAt, string origin) : base(id)
         {
             Id = id;
             Content = content;

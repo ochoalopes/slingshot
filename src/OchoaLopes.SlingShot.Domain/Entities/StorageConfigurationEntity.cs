@@ -2,9 +2,9 @@
 {
     public class StorageConfigurationEntity : Entity
     {
-        public StorageConfigurationEntity(string connectionString, string containerName, string accessKey, string secretKey)
+        public StorageConfigurationEntity(Guid id, string connectionString, string containerName, string accessKey, string secretKey) : base(id)
         {
-            Id = Guid.NewGuid();
+            Id = id;
             ConnectionString = connectionString;
             ContainerName = containerName;
             AccessKey = accessKey;

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using OchoaLopes.SlingShot.Domain.Interfaces.Messaging;
 using System.Diagnostics;
 
-namespace OchoaLopes.SlingShot.Application.Services
+namespace OchoaLopes.SlingShot.Application.Services.Messaging
 {
     public class MessageProcessor : IMessageProcessor
     {
@@ -41,7 +41,7 @@ namespace OchoaLopes.SlingShot.Application.Services
 
                     _telemetryClient.TrackMetric("MessageProcessingTime", stopwatch.ElapsedMilliseconds);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     _logger.LogError(ex, "Error processing message {message}", message);
 

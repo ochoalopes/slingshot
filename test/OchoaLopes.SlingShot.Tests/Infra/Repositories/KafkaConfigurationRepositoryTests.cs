@@ -6,6 +6,7 @@ using OchoaLopes.SlingShot.Domain.Interfaces.Repositories;
 using OchoaLopes.SlingShot.Infra.Context;
 using OchoaLopes.SlingShot.Infra.Repositories;
 using OchoaLopes.SlingShot.Tests.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
 {
@@ -38,14 +39,12 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             {
                 // Arrange
                 var entity = new KafkaConfigurationEntity
-                {
-                    Id = Guid.NewGuid(),
-                    BootstrapServers = "localhost:9092",
-                    Topic = "test-topic",
-                    GroupId = "test-group",
-                    AutoOffsetReset = "earliest",
-                    EnableAutoCommit = true
-                };
+                (
+                    Guid.NewGuid(),
+                    "localhost:9092",
+                    "test-topic",
+                    "test-group"
+                );
 
                 // Act
                 await _sut.AddAsync(entity);
@@ -53,6 +52,22 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                 // Assert
                 var result = await _sut.GetByIdAsync(entity.Id);
                 result.Should().BeEquivalentTo(entity);
+            }
+
+            [Test]
+            public void AddKafkaConfigurationAsync_WithInvalidEntity_ThrowsValidationException()
+            {
+                // Arrange
+                var invalidEntity = new KafkaConfigurationEntity
+                (
+                    Guid.NewGuid(),
+                    "localhost:9092",
+                    "test-topic",
+                    "test-group"
+                ); ;
+
+                // Act & Assert
+                Assert.Throws<ValidationException>(() => _sut.AddAsync(invalidEntity));
             }
         }
     }
