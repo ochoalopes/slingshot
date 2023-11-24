@@ -60,6 +60,11 @@ namespace OchoaLopes.SlingShot.Infra.Repositories
 
         public async Task AddAsync(TEntity entity)
         {
+            if (entity is null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             _logger.LogInformation($"Adding {entity.GetType().Name} to database");
 
             await _dbSet.AddAsync(entity);
@@ -67,6 +72,11 @@ namespace OchoaLopes.SlingShot.Infra.Repositories
 
         public void Update(TEntity entity)
         {
+            if (entity is null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             _logger.LogInformation($"Updating {entity.GetType().Name} in database");
 
             _dbSet.Attach(entity);
@@ -75,6 +85,11 @@ namespace OchoaLopes.SlingShot.Infra.Repositories
 
         public void Delete(TEntity entity)
         {
+            if (entity is null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             _logger.LogInformation($"Deleting {entity.GetType().Name} from database");
 
             if (_context.Entry(entity).State == EntityState.Detached)

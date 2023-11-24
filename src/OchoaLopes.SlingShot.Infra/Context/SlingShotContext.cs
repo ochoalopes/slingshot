@@ -26,15 +26,16 @@ namespace OchoaLopes.SlingShot.Infra.Context
             {
                 entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.BootstrapServers).HasMaxLength(255);
+                entity.Property(e => e.BootstrapServers).HasMaxLength(1024);
                 entity.Property(e => e.Topic).HasMaxLength(255);
                 entity.Property(e => e.GroupId).HasMaxLength(255);
-                entity.Property(e => e.AutoOffsetReset).HasMaxLength(12);
+                entity.Property(e => e.AutoOffsetReset).HasMaxLength(16);
                 entity.Property(e => e.EnableAutoCommit).HasDefaultValue(false);
-                entity.Property(e => e.SecurityProtocol).HasMaxLength(255);
-                entity.Property(e => e.SaslMechanism).HasMaxLength(255);
+                entity.Property(e => e.SecurityProtocol).HasMaxLength(16);
+                entity.Property(e => e.SaslMechanism).HasMaxLength(16);
                 entity.Property(e => e.SaslUsername).HasMaxLength(255);
                 entity.Property(e => e.SaslPassword).HasMaxLength(255);
+                entity.Property(e => e.SslCaLocation).HasMaxLength(1024);
 
                 entity.ToTable("KafkaConfigurations");
             });

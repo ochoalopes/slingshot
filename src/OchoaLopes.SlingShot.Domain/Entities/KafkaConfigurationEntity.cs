@@ -19,5 +19,6 @@
         public string? SaslMechanism { get; set; }
         public string? SaslUsername { get; set; }
         public string? SaslPassword { get; set; }
+        public string? SslCaLocation { get; set; }
     }
 }
