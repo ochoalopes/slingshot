@@ -11,19 +11,19 @@ using OchoaLopes.SlingShot.Tests.Helpers;
 namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
 {
     [TestFixture]
-    public abstract class KafkaConfigurationRepositoryTests
+    public class StorageConfigurationRepositoryTests
     {
-        private Mock<ILogger<IRepository<KafkaConfigurationEntity>>> _loggerMock;
+        private Mock<ILogger<IRepository<StorageConfigurationEntity>>> _loggerMock;
         private DbContext _context;
-        private IKafkaConfigurationRepository _sut;
+        private IStorageConfigurationRepository _sut;
 
         [SetUp]
         public virtual void Setup()
         {
             var contextOptions = DbContextHelper.CreateNewContextOptions();
             _context = new SlingShotContext(contextOptions);
-            _loggerMock = new Mock<ILogger<IRepository<KafkaConfigurationEntity>>>();
-            _sut = new KafkaConfigurationRepository(_loggerMock.Object, _context);
+            _loggerMock = new Mock<ILogger<IRepository<StorageConfigurationEntity>>>();
+            _sut = new StorageConfigurationRepository(_loggerMock.Object, _context);
         }
 
         [TearDown]
@@ -33,7 +33,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         }
 
         [TestFixture]
-        public class When_Search_KafkaConfiguration : KafkaConfigurationRepositoryTests
+        public class When_Search_StorageConfiguration : StorageConfigurationRepositoryTests
         {
             [SetUp]
             public override void Setup()
@@ -42,22 +42,24 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task GetKafkaConfigurationAsync_ReturnsAllEntities()
+            public async Task GetStorageConfigurationAsync_ReturnsAllEntities()
             {
                 // Arrange
-                var entity1 = new KafkaConfigurationEntity
+                var entity1 = new StorageConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9092",
-                    "test-topic",
-                    "test-group"
+                    "connectionString1",
+                    "containerName1",
+                    "accessKey",
+                    "secretKey"
                 );
-                var entity2 = new KafkaConfigurationEntity
+                var entity2 = new StorageConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9093",
-                    "test-topic",
-                    "test-group"
+                    "connectionString2",
+                    "containerName2",
+                    "accessKey",
+                    "secretKey"
                 );
 
                 await _sut.AddAsync(entity1);
@@ -73,24 +75,26 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task GetKafkaConfigurationAsync_WithFilter_ReturnsFilteredEntities()
+            public async Task GetStorageConfigurationAsync_WithFilter_ReturnsFilteredEntities()
             {
                 // Arrange
-                var entity1 = new KafkaConfigurationEntity
+                var entity1 = new StorageConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9092",
-                    "test-topic",
-                    "test-group"
+                    "connectionString1",
+                    "containerName1",
+                    "accessKey",
+                    "secretKey"
                 );
-                var entity2 = new KafkaConfigurationEntity
+                var entity2 = new StorageConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9093",
-                    "test-topic",
-                    "test-group"
+                    "connectionString2",
+                    "containerName2",
+                    "accessKey",
+                    "secretKey"
                 );
-                string bootstrapServers = "localhost:9092";
+                string containerName = "containerName1";
 
                 await _sut.AddAsync(entity1);
                 await _sut.AddAsync(entity2);
@@ -98,29 +102,31 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                 await _context.SaveChangesAsync();
 
                 // Act
-                var result = await _sut.Get(x => x.BootstrapServers == bootstrapServers);
+                var result = await _sut.Get(x => x.ContainerName == containerName);
 
                 // Assert
                 result.Should().HaveCount(1);
             }
 
             [Test]
-            public async Task GetKafkaConfigurationAsync_WithOrderBy_ReturnsOrderedEntities()
+            public async Task GetStorageConfigurationAsync_WithOrderBy_ReturnsOrderedEntities()
             {
                 // Arrange
-                var entity1 = new KafkaConfigurationEntity
+                var entity1 = new StorageConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9092",
-                    "test-topic",
-                    "test-group"
+                    "connectionString1",
+                    "containerName1",
+                    "accessKey",
+                    "secretKey"
                 );
-                var entity2 = new KafkaConfigurationEntity
+                var entity2 = new StorageConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9093",
-                    "test-topic",
-                    "test-group"
+                    "connectionString2",
+                    "containerName2",
+                    "accessKey",
+                    "secretKey"
                 );
 
                 await _sut.AddAsync(entity1);
@@ -129,30 +135,32 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                 await _context.SaveChangesAsync();
 
                 // Act
-                var result = await _sut.Get(orderBy: x => x.OrderBy(y => y.BootstrapServers));
+                var result = await _sut.Get(orderBy: x => x.OrderBy(y => y.ContainerName));
 
                 // Assert
                 result.Should().HaveCount(2);
-                result.First().BootstrapServers.Should().Be("localhost:9092");
+                result.First().ContainerName.Should().Be("containerName1");
             }
 
             [Test]
-            public async Task GetKafkaConfigurationAsync_ReturnsEntityById()
+            public async Task GetStorageConfigurationAsync_ReturnsEntityById()
             {
                 // Arrange
-                var entity1 = new KafkaConfigurationEntity
+                var entity1 = new StorageConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9092",
-                    "test-topic",
-                    "test-group"
+                    "connectionString1",
+                    "containerName1",
+                    "accessKey",
+                    "secretKey"
                 );
-                var entity2 = new KafkaConfigurationEntity
+                var entity2 = new StorageConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9093",
-                    "test-topic",
-                    "test-group"
+                    "connectionString2",
+                    "containerName2",
+                    "accessKey",
+                    "secretKey"
                 );
 
                 await _sut.AddAsync(entity1);
@@ -169,7 +177,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         }
 
         [TestFixture]
-        public class When_Add_KafkaConfiguration : KafkaConfigurationRepositoryTests
+        public class When_Add_StorageConfiguration : StorageConfigurationRepositoryTests
         {
             [SetUp]
             public override void Setup()
@@ -178,15 +186,16 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task AddKafkaConfigurationAsync_SavesToDatabase()
+            public async Task AddStorageConfigurationAsync_SavesToDatabase()
             {
                 // Arrange
-                var entity = new KafkaConfigurationEntity
+                var entity = new StorageConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9092",
-                    "test-topic",
-                    "test-group"
+                    "connectionString1",
+                    "containerName1",
+                    "accessKey",
+                    "secretKey"
                 );
 
                 // Act
@@ -199,10 +208,10 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public void AddKafkaConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void AddApiConfigurationAsync_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
-                KafkaConfigurationEntity? invalidEntity = null;
+                StorageConfigurationEntity? invalidEntity = null;
 
                 // Act & Assert
                 #pragma warning disable CS8604 // Possible null reference argument.
@@ -212,7 +221,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         }
 
         [TestFixture]
-        public class When_Update_KafkaConfiguration : KafkaConfigurationRepositoryTests
+        public class When_Update_StorageConfiguration : StorageConfigurationRepositoryTests
         {
             [SetUp]
             public override void Setup()
@@ -221,23 +230,24 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task UpdateKafkaConfigurationAsync_SavesToDatabase()
+            public async Task UpdateStorageConfigurationAsync_SavesToDatabase()
             {
                 // Arrange
-                var entity = new KafkaConfigurationEntity
+                var entity = new StorageConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9092",
-                    "test-topic",
-                    "test-group"
+                    "connectionString1",
+                    "containerName1",
+                    "accessKey",
+                    "secretKey"
                 );
-                string updatedBootstrapServers = "localhost:9093";
+                string updatedContainerName = "containerNameUpdated";
 
                 await _sut.AddAsync(entity);
 
                 await _context.SaveChangesAsync();
 
-                entity.BootstrapServers = updatedBootstrapServers;
+                entity.ContainerName = updatedContainerName;
 
                 // Act
                 _sut.Update(entity);
@@ -247,14 +257,14 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                 // Assert
                 var result = await _sut.GetByIdAsync(entity.Id);
                 result.Should().BeEquivalentTo(entity);
-                entity.BootstrapServers.Should().Be(updatedBootstrapServers);
+                entity.ContainerName.Should().Be(updatedContainerName);
             }
 
             [Test]
-            public void UpdateKafkaConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void UpdateApiConfigurationAsync_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
-                KafkaConfigurationEntity? invalidEntity = null;
+                StorageConfigurationEntity? invalidEntity = null;
 
                 // Act & Assert
                 #pragma warning disable CS8604 // Possible null reference argument.
@@ -264,7 +274,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         }
 
         [TestFixture]
-        public class When_Delete_KafkaConfiguration : KafkaConfigurationRepositoryTests
+        public class When_Delete_StorageConfiguration : StorageConfigurationRepositoryTests
         {
             [SetUp]
             public override void Setup()
@@ -273,15 +283,16 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task DeleteKafkaConfigurationAsync_RemovesFromDatabase()
+            public async Task DeleteStorageConfigurationAsync_RemovesFromDatabase()
             {
                 // Arrange
-                var entity = new KafkaConfigurationEntity
+                var entity = new StorageConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9092",
-                    "test-topic",
-                    "test-group"
+                    "connectionString1",
+                    "containerName1",
+                    "accessKey",
+                    "secretKey"
                 );
 
                 await _sut.AddAsync(entity);
@@ -297,10 +308,10 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public void DeleteKafkaConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void DeleteStorageConfigurationAsync_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
-                KafkaConfigurationEntity? invalidEntity = null;
+                StorageConfigurationEntity? invalidEntity = null;
 
                 // Act & Assert
                 #pragma warning disable CS8604 // Possible null reference argument.

@@ -11,19 +11,19 @@ using OchoaLopes.SlingShot.Tests.Helpers;
 namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
 {
     [TestFixture]
-    public abstract class KafkaConfigurationRepositoryTests
+    public abstract class ApiConfigurationRepositoryTests
     {
-        private Mock<ILogger<IRepository<KafkaConfigurationEntity>>> _loggerMock;
+        private Mock<ILogger<IRepository<ApiConfigurationEntity>>> _loggerMock;
         private DbContext _context;
-        private IKafkaConfigurationRepository _sut;
+        private IApiConfigurationRepository _sut;
 
         [SetUp]
         public virtual void Setup()
         {
             var contextOptions = DbContextHelper.CreateNewContextOptions();
             _context = new SlingShotContext(contextOptions);
-            _loggerMock = new Mock<ILogger<IRepository<KafkaConfigurationEntity>>>();
-            _sut = new KafkaConfigurationRepository(_loggerMock.Object, _context);
+            _loggerMock = new Mock<ILogger<IRepository<ApiConfigurationEntity>>>();
+            _sut = new ApiConfigurationRepository(_loggerMock.Object, _context);
         }
 
         [TearDown]
@@ -33,7 +33,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         }
 
         [TestFixture]
-        public class When_Search_KafkaConfiguration : KafkaConfigurationRepositoryTests
+        public class When_Search_ApiConfiguration : ApiConfigurationRepositoryTests
         {
             [SetUp]
             public override void Setup()
@@ -42,22 +42,18 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task GetKafkaConfigurationAsync_ReturnsAllEntities()
+            public async Task GetApiConfigurationAsync_ReturnsAllEntities()
             {
                 // Arrange
-                var entity1 = new KafkaConfigurationEntity
+                var entity1 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9092",
-                    "test-topic",
-                    "test-group"
+                    "https://localhost:5001"
                 );
-                var entity2 = new KafkaConfigurationEntity
+                var entity2 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9093",
-                    "test-topic",
-                    "test-group"
+                    "https://localhost:5002"
                 );
 
                 await _sut.AddAsync(entity1);
@@ -73,24 +69,20 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task GetKafkaConfigurationAsync_WithFilter_ReturnsFilteredEntities()
+            public async Task GetApiConfigurationAsync_WithFilter_ReturnsFilteredEntities()
             {
                 // Arrange
-                var entity1 = new KafkaConfigurationEntity
+                var entity1 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9092",
-                    "test-topic",
-                    "test-group"
+                    "https://localhost:5001"
                 );
-                var entity2 = new KafkaConfigurationEntity
+                var entity2 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9093",
-                    "test-topic",
-                    "test-group"
+                    "https://localhost:5002"
                 );
-                string bootstrapServers = "localhost:9092";
+                string baseUrl = "https://localhost:5001";
 
                 await _sut.AddAsync(entity1);
                 await _sut.AddAsync(entity2);
@@ -98,29 +90,25 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                 await _context.SaveChangesAsync();
 
                 // Act
-                var result = await _sut.Get(x => x.BootstrapServers == bootstrapServers);
+                var result = await _sut.Get(x => x.BaseUrl == baseUrl);
 
                 // Assert
                 result.Should().HaveCount(1);
             }
 
             [Test]
-            public async Task GetKafkaConfigurationAsync_WithOrderBy_ReturnsOrderedEntities()
+            public async Task GetApiConfigurationAsync_WithOrderBy_ReturnsOrderedEntities()
             {
                 // Arrange
-                var entity1 = new KafkaConfigurationEntity
+                var entity1 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9092",
-                    "test-topic",
-                    "test-group"
+                    "https://localhost:5001"
                 );
-                var entity2 = new KafkaConfigurationEntity
+                var entity2 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9093",
-                    "test-topic",
-                    "test-group"
+                    "https://localhost:5002"
                 );
 
                 await _sut.AddAsync(entity1);
@@ -129,30 +117,26 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                 await _context.SaveChangesAsync();
 
                 // Act
-                var result = await _sut.Get(orderBy: x => x.OrderBy(y => y.BootstrapServers));
+                var result = await _sut.Get(orderBy: x => x.OrderBy(y => y.BaseUrl));
 
                 // Assert
                 result.Should().HaveCount(2);
-                result.First().BootstrapServers.Should().Be("localhost:9092");
+                result.First().BaseUrl.Should().Be("https://localhost:5001");
             }
 
             [Test]
-            public async Task GetKafkaConfigurationAsync_ReturnsEntityById()
+            public async Task GetApiConfigurationAsync_ReturnsEntityById()
             {
                 // Arrange
-                var entity1 = new KafkaConfigurationEntity
+                var entity1 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9092",
-                    "test-topic",
-                    "test-group"
+                    "https://localhost:5001"
                 );
-                var entity2 = new KafkaConfigurationEntity
+                var entity2 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9093",
-                    "test-topic",
-                    "test-group"
+                    "https://localhost:5002"
                 );
 
                 await _sut.AddAsync(entity1);
@@ -169,7 +153,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         }
 
         [TestFixture]
-        public class When_Add_KafkaConfiguration : KafkaConfigurationRepositoryTests
+        public class When_Add_ApiConfiguration : ApiConfigurationRepositoryTests
         {
             [SetUp]
             public override void Setup()
@@ -178,15 +162,13 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task AddKafkaConfigurationAsync_SavesToDatabase()
+            public async Task AddApiConfigurationAsync_SavesToDatabase()
             {
                 // Arrange
-                var entity = new KafkaConfigurationEntity
+                var entity = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9092",
-                    "test-topic",
-                    "test-group"
+                    "https://localhost:5001"
                 );
 
                 // Act
@@ -199,10 +181,10 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public void AddKafkaConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void AddApiConfigurationAsync_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
-                KafkaConfigurationEntity? invalidEntity = null;
+                ApiConfigurationEntity? invalidEntity = null;
 
                 // Act & Assert
                 #pragma warning disable CS8604 // Possible null reference argument.
@@ -212,7 +194,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         }
 
         [TestFixture]
-        public class When_Update_KafkaConfiguration : KafkaConfigurationRepositoryTests
+        public class When_Update_ApiConfiguration : ApiConfigurationRepositoryTests
         {
             [SetUp]
             public override void Setup()
@@ -221,23 +203,21 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task UpdateKafkaConfigurationAsync_SavesToDatabase()
+            public async Task UpdateApiConfigurationAsync_SavesToDatabase()
             {
                 // Arrange
-                var entity = new KafkaConfigurationEntity
+                var entity = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9092",
-                    "test-topic",
-                    "test-group"
+                    "https://localhost:5001"
                 );
-                string updatedBootstrapServers = "localhost:9093";
+                string updatedBaseUrl = "https://localhost:5002";
 
                 await _sut.AddAsync(entity);
 
                 await _context.SaveChangesAsync();
 
-                entity.BootstrapServers = updatedBootstrapServers;
+                entity.BaseUrl = updatedBaseUrl;
 
                 // Act
                 _sut.Update(entity);
@@ -247,14 +227,14 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                 // Assert
                 var result = await _sut.GetByIdAsync(entity.Id);
                 result.Should().BeEquivalentTo(entity);
-                entity.BootstrapServers.Should().Be(updatedBootstrapServers);
+                entity.BaseUrl.Should().Be(updatedBaseUrl);
             }
 
             [Test]
-            public void UpdateKafkaConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void UpdateApiConfigurationAsync_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
-                KafkaConfigurationEntity? invalidEntity = null;
+                ApiConfigurationEntity? invalidEntity = null;
 
                 // Act & Assert
                 #pragma warning disable CS8604 // Possible null reference argument.
@@ -264,7 +244,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         }
 
         [TestFixture]
-        public class When_Delete_KafkaConfiguration : KafkaConfigurationRepositoryTests
+        public class When_Delete_ApiConfiguration : ApiConfigurationRepositoryTests
         {
             [SetUp]
             public override void Setup()
@@ -273,15 +253,13 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task DeleteKafkaConfigurationAsync_RemovesFromDatabase()
+            public async Task DeleteApiConfigurationAsync_RemovesFromDatabase()
             {
                 // Arrange
-                var entity = new KafkaConfigurationEntity
+                var entity = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "localhost:9092",
-                    "test-topic",
-                    "test-group"
+                    "https://localhost:5001"
                 );
 
                 await _sut.AddAsync(entity);
@@ -297,10 +275,10 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public void DeleteKafkaConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void DeleteApiConfigurationAsync_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
-                KafkaConfigurationEntity? invalidEntity = null;
+                ApiConfigurationEntity? invalidEntity = null;
 
                 // Act & Assert
                 #pragma warning disable CS8604 // Possible null reference argument.
