@@ -50,14 +50,16 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     Guid.NewGuid(),
                     "localhost:9092",
                     "test-topic",
-                    "test-group"
+                    "test-group",
+                    Guid.NewGuid()
                 );
                 var entity2 = new KafkaConfigurationEntity
                 (
                     Guid.NewGuid(),
                     "localhost:9093",
                     "test-topic",
-                    "test-group"
+                    "test-group",
+                    Guid.NewGuid()
                 );
 
                 await _sut.AddAsync(entity1);
@@ -81,14 +83,16 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     Guid.NewGuid(),
                     "localhost:9092",
                     "test-topic",
-                    "test-group"
+                    "test-group",
+                    Guid.NewGuid()
                 );
                 var entity2 = new KafkaConfigurationEntity
                 (
                     Guid.NewGuid(),
                     "localhost:9093",
                     "test-topic",
-                    "test-group"
+                    "test-group",
+                    Guid.NewGuid()
                 );
                 string bootstrapServers = "localhost:9092";
 
@@ -113,14 +117,16 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     Guid.NewGuid(),
                     "localhost:9092",
                     "test-topic",
-                    "test-group"
+                    "test-group",
+                    Guid.NewGuid()
                 );
                 var entity2 = new KafkaConfigurationEntity
                 (
                     Guid.NewGuid(),
                     "localhost:9093",
                     "test-topic",
-                    "test-group"
+                    "test-group",
+                    Guid.NewGuid()
                 );
 
                 await _sut.AddAsync(entity1);
@@ -145,14 +151,16 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     Guid.NewGuid(),
                     "localhost:9092",
                     "test-topic",
-                    "test-group"
+                    "test-group",
+                    Guid.NewGuid()
                 );
                 var entity2 = new KafkaConfigurationEntity
                 (
                     Guid.NewGuid(),
                     "localhost:9093",
                     "test-topic",
-                    "test-group"
+                    "test-group",
+                    Guid.NewGuid()
                 );
 
                 await _sut.AddAsync(entity1);
@@ -186,7 +194,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     Guid.NewGuid(),
                     "localhost:9092",
                     "test-topic",
-                    "test-group"
+                    "test-group",
+                    Guid.NewGuid()
                 );
 
                 // Act
@@ -229,7 +238,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     Guid.NewGuid(),
                     "localhost:9092",
                     "test-topic",
-                    "test-group"
+                    "test-group",
+                    Guid.NewGuid()
                 );
                 string updatedBootstrapServers = "localhost:9093";
 
@@ -281,7 +291,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     Guid.NewGuid(),
                     "localhost:9092",
                     "test-topic",
-                    "test-group"
+                    "test-group",
+                    Guid.NewGuid()
                 );
 
                 await _sut.AddAsync(entity);

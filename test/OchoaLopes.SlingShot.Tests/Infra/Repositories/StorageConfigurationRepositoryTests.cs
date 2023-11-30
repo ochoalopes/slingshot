@@ -51,7 +51,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     "connectionString1",
                     "containerName1",
                     "accessKey",
-                    "secretKey"
+                    "secretKey",
+                    Guid.NewGuid()
                 );
                 var entity2 = new StorageConfigurationEntity
                 (
@@ -59,7 +60,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     "connectionString2",
                     "containerName2",
                     "accessKey",
-                    "secretKey"
+                    "secretKey",
+                    Guid.NewGuid()
                 );
 
                 await _sut.AddAsync(entity1);
@@ -84,7 +86,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     "connectionString1",
                     "containerName1",
                     "accessKey",
-                    "secretKey"
+                    "secretKey",
+                    Guid.NewGuid()
                 );
                 var entity2 = new StorageConfigurationEntity
                 (
@@ -92,7 +95,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     "connectionString2",
                     "containerName2",
                     "accessKey",
-                    "secretKey"
+                    "secretKey",
+                    Guid.NewGuid()
                 );
                 string containerName = "containerName1";
 
@@ -118,7 +122,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     "connectionString1",
                     "containerName1",
                     "accessKey",
-                    "secretKey"
+                    "secretKey",
+                    Guid.NewGuid()
                 );
                 var entity2 = new StorageConfigurationEntity
                 (
@@ -126,7 +131,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     "connectionString2",
                     "containerName2",
                     "accessKey",
-                    "secretKey"
+                    "secretKey",
+                    Guid.NewGuid()
                 );
 
                 await _sut.AddAsync(entity1);
@@ -152,7 +158,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     "connectionString1",
                     "containerName1",
                     "accessKey",
-                    "secretKey"
+                    "secretKey",
+                    Guid.NewGuid()
                 );
                 var entity2 = new StorageConfigurationEntity
                 (
@@ -160,7 +167,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     "connectionString2",
                     "containerName2",
                     "accessKey",
-                    "secretKey"
+                    "secretKey",
+                    Guid.NewGuid()
                 );
 
                 await _sut.AddAsync(entity1);
@@ -195,7 +203,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     "connectionString1",
                     "containerName1",
                     "accessKey",
-                    "secretKey"
+                    "secretKey",
+                    Guid.NewGuid()
                 );
 
                 // Act
@@ -239,7 +248,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     "connectionString1",
                     "containerName1",
                     "accessKey",
-                    "secretKey"
+                    "secretKey",
+                    Guid.NewGuid()
                 );
                 string updatedContainerName = "containerNameUpdated";
 
@@ -292,7 +302,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                     "connectionString1",
                     "containerName1",
                     "accessKey",
-                    "secretKey"
+                    "secretKey",
+                    Guid.NewGuid()
                 );
 
                 await _sut.AddAsync(entity);

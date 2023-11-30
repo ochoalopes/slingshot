@@ -2,12 +2,14 @@
 {
     public class KafkaConfigurationEntity : Entity
     {
-        public KafkaConfigurationEntity(Guid id, string bootstrapServers, string topic, string groupId) : base(id)
+        public KafkaConfigurationEntity(Guid id, string bootstrapServers, string topic, 
+            string groupId, Guid nodeId) : base(id)
         {
             Id = id;
             BootstrapServers = bootstrapServers;
             Topic = topic;
             GroupId = groupId;
+            NodeId = nodeId;
         }
 
         public string BootstrapServers { get; set; }
@@ -20,5 +22,8 @@
         public string? SaslUsername { get; set; }
         public string? SaslPassword { get; set; }
         public string? SslCaLocation { get; set; }
+        public bool IsEnabled { get; set; } = true;
+        public Guid NodeId { get; set; }
+        public NodeEntity? Node { get; set; }
     }
 }

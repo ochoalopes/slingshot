@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OchoaLopes.SlingShot.Domain.Entities;
+using OchoaLopes.SlingShot.Infra.Builders;
 
 namespace OchoaLopes.SlingShot.Infra.Context
 {
@@ -15,6 +16,7 @@ namespace OchoaLopes.SlingShot.Infra.Context
         public DbSet<KafkaConfigurationEntity> KafkaConfigurations { get; set; }
         public DbSet<ApiConfigurationEntity> ApiConfigurations { get; set; }
         public DbSet<StorageConfigurationEntity> StorageConfigurations { get; set; }
+        public DbSet<NodeEntity> Nodes { get; set; }
         #endregion
 
         #region Protected Methods
@@ -22,23 +24,22 @@ namespace OchoaLopes.SlingShot.Infra.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<KafkaConfigurationEntity>(entity =>
-            {
-                entity.HasKey(e => e.Id);
+            modelBuilder.Entity<NodeEntity>()
+                .HasMany(n => n.KafkaConfigurations)
+                .WithOne(k => k.Node)
+                .HasForeignKey(k => k.NodeId);
 
-                entity.Property(e => e.BootstrapServers).HasMaxLength(1024);
-                entity.Property(e => e.Topic).HasMaxLength(255);
-                entity.Property(e => e.GroupId).HasMaxLength(255);
-                entity.Property(e => e.AutoOffsetReset).HasMaxLength(16);
-                entity.Property(e => e.EnableAutoCommit).HasDefaultValue(false);
-                entity.Property(e => e.SecurityProtocol).HasMaxLength(16);
-                entity.Property(e => e.SaslMechanism).HasMaxLength(16);
-                entity.Property(e => e.SaslUsername).HasMaxLength(255);
-                entity.Property(e => e.SaslPassword).HasMaxLength(255);
-                entity.Property(e => e.SslCaLocation).HasMaxLength(1024);
+            modelBuilder.Entity<NodeEntity>()
+                .HasMany(n => n.ApiConfigurations)
+                .WithOne(k => k.Node)
+                .HasForeignKey(k => k.NodeId);
 
-                entity.ToTable("KafkaConfigurations");
-            });
+            modelBuilder.Entity<NodeEntity>()
+                .HasMany(n => n.StorageConfigurations)
+                .WithOne(k => k.Node)
+                .HasForeignKey(k => k.NodeId);
+
+            modelBuilder.ApplyConfiguration(new KafkaConfigurationEntityBuilder());
 
             modelBuilder.Entity<ApiConfigurationEntity>(entity =>
             {
@@ -49,6 +50,9 @@ namespace OchoaLopes.SlingShot.Infra.Context
                 entity.Property(e => e.AuthToken).HasMaxLength(255);
                 entity.Property(e => e.DefaultHeaders).HasMaxLength(2048);
                 entity.Property(e => e.TimeoutInSeconds).HasDefaultValue(30);
+                entity.Property(e => e.IsEnabled).HasDefaultValue(true);
+
+                entity.ToTable("ApiConfigurations");
             });
 
             modelBuilder.Entity<StorageConfigurationEntity>(entity =>
@@ -61,6 +65,9 @@ namespace OchoaLopes.SlingShot.Infra.Context
                 entity.Property(e => e.SecretKey).HasMaxLength(255);
                 entity.Property(e => e.Region).HasMaxLength(25);
                 entity.Property(e => e.UseSSL).HasDefaultValue(false);
+                entity.Property(e => e.IsEnabled).HasDefaultValue(true);
+
+                entity.ToTable("StorageConfigurations");
             });
         }
         #endregion

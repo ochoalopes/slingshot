@@ -48,12 +48,14 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                 var entity1 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "https://localhost:5001"
+                    "https://localhost:5001",
+                    Guid.NewGuid()
                 );
                 var entity2 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "https://localhost:5002"
+                    "https://localhost:5002",
+                    Guid.NewGuid()
                 );
 
                 await _sut.AddAsync(entity1);
@@ -75,12 +77,14 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                 var entity1 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "https://localhost:5001"
+                    "https://localhost:5001",
+                    Guid.NewGuid()
                 );
                 var entity2 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "https://localhost:5002"
+                    "https://localhost:5002",
+                    Guid.NewGuid()
                 );
                 string baseUrl = "https://localhost:5001";
 
@@ -103,12 +107,14 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                 var entity1 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "https://localhost:5001"
+                    "https://localhost:5001",
+                    Guid.NewGuid()
                 );
                 var entity2 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "https://localhost:5002"
+                    "https://localhost:5002",
+                    Guid.NewGuid()
                 );
 
                 await _sut.AddAsync(entity1);
@@ -131,12 +137,14 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                 var entity1 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "https://localhost:5001"
+                    "https://localhost:5001",
+                    Guid.NewGuid()
                 );
                 var entity2 = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "https://localhost:5002"
+                    "https://localhost:5002",
+                    Guid.NewGuid()
                 );
 
                 await _sut.AddAsync(entity1);
@@ -168,7 +176,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                 var entity = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "https://localhost:5001"
+                    "https://localhost:5001",
+                    Guid.NewGuid()
                 );
 
                 // Act
@@ -209,7 +218,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                 var entity = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "https://localhost:5001"
+                    "https://localhost:5001",
+                    Guid.NewGuid()
                 );
                 string updatedBaseUrl = "https://localhost:5002";
 
@@ -259,7 +269,8 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
                 var entity = new ApiConfigurationEntity
                 (
                     Guid.NewGuid(),
-                    "https://localhost:5001"
+                    "https://localhost:5001",
+                    Guid.NewGuid()
                 );
 
                 await _sut.AddAsync(entity);
