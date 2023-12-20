@@ -10,6 +10,10 @@ namespace OchoaLopes.SlingShot.Domain.Validators
             RuleFor(x => x.BaseUrl)
                 .NotEmpty()
                 .WithMessage("Base URL be informed.");
+
+            RuleFor(x => x.NodeId)
+                .NotEmpty()
+                .WithMessage("Node ID must be informed.");
         }
     }
 }

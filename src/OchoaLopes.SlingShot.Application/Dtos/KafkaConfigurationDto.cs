@@ -46,5 +46,12 @@ namespace OchoaLopes.SlingShot.Application.Dtos
         [MaxLength(1024, ErrorMessage = "The SSL CA location must be less than 1024 characters.")]
         [JsonProperty("sslCaLocation")]
         public string? SslCaLocation { get; set; }
+
+        [JsonProperty("isEnabled")]
+        public bool IsEnabled { get; set; }
+
+        [Required(ErrorMessage = "Node ID must be informed.")]
+        [JsonProperty("nodeId")]
+        public string? NodeId { get; set; }
     }
 }

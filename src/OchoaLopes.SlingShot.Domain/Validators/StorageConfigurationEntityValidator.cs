@@ -14,6 +14,10 @@ namespace OchoaLopes.SlingShot.Domain.Validators
             RuleFor(x => x.ContainerName)
                 .NotEmpty()
                 .WithMessage("The container name must be informed.");
+
+            RuleFor(x => x.NodeId)
+                .NotEmpty()
+                .WithMessage("Node ID must be informed.");
         }
     }
 }

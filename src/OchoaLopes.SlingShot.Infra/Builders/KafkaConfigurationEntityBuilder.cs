@@ -22,6 +22,8 @@ namespace OchoaLopes.SlingShot.Infra.Builders
             builder.Property(e => e.SslCaLocation).HasMaxLength(1024);
             builder.Property(e => e.IsEnabled).HasDefaultValue(true);
 
+            builder.HasOne(e => e.Node).WithMany(e => e.KafkaConfigurations).HasForeignKey(e => e.NodeId);
+
             builder.ToTable("KafkaConfigurations");
         }
     }

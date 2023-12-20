@@ -42,6 +42,10 @@ namespace OchoaLopes.SlingShot.Domain.Validators
             RuleFor(x => x.SslCaLocation)
                 .MaximumLength(1024).WithMessage("The SSL CA location must be less than 1024 characters.")
                 .When(x => !string.IsNullOrEmpty(x.SslCaLocation));
+
+            RuleFor(x => x.NodeId)
+                .NotEmpty()
+                .WithMessage("Node ID must be informed.");
         }
     }
 }
