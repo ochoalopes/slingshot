@@ -13,16 +13,16 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
     [TestFixture]
     public abstract class KafkaConfigurationRepositoryTests
     {
-        private Mock<ILogger<IRepository<KafkaConfigurationEntity>>> _loggerMock;
+        private Mock<ILogger<IKafkaConfigurationRepository>> _loggerMock;
         private DbContext _context;
         private IKafkaConfigurationRepository _sut;
 
         [SetUp]
-        public virtual void Setup()
+        public virtual void SetUp()
         {
             var contextOptions = DbContextHelper.CreateNewContextOptions();
             _context = new SlingShotContext(contextOptions);
-            _loggerMock = new Mock<ILogger<IRepository<KafkaConfigurationEntity>>>();
+            _loggerMock = new Mock<ILogger<IKafkaConfigurationRepository>>();
             _sut = new KafkaConfigurationRepository(_loggerMock.Object, _context);
         }
 
@@ -36,13 +36,13 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         public class When_Search_KafkaConfiguration : KafkaConfigurationRepositoryTests
         {
             [SetUp]
-            public override void Setup()
+            public override void SetUp()
             {
-                base.Setup();
+                base.SetUp();
             }
 
             [Test]
-            public async Task GetKafkaConfigurationAsync_ReturnsAllEntities()
+            public async Task GetAllAsync_ReturnsAllEntities()
             {
                 // Arrange
                 var entity1 = new KafkaConfigurationEntity
@@ -75,7 +75,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task GetKafkaConfigurationAsync_WithFilter_ReturnsFilteredEntities()
+            public async Task Get_WithFilter_ReturnsFilteredEntities()
             {
                 // Arrange
                 var entity1 = new KafkaConfigurationEntity
@@ -109,7 +109,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task GetKafkaConfigurationAsync_WithOrderBy_ReturnsOrderedEntities()
+            public async Task Get_WithOrderBy_ReturnsOrderedEntities()
             {
                 // Arrange
                 var entity1 = new KafkaConfigurationEntity
@@ -143,7 +143,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task GetKafkaConfigurationAsync_ReturnsEntityById()
+            public async Task GetByIdAsync_ReturnsEntityById()
             {
                 // Arrange
                 var entity1 = new KafkaConfigurationEntity
@@ -180,13 +180,13 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         public class When_Add_KafkaConfiguration : KafkaConfigurationRepositoryTests
         {
             [SetUp]
-            public override void Setup()
+            public override void SetUp()
             {
-                base.Setup();
+                base.SetUp();
             }
 
             [Test]
-            public async Task AddKafkaConfigurationAsync_SavesToDatabase()
+            public async Task AddAsync_SavesToDatabase()
             {
                 // Arrange
                 var entity = new KafkaConfigurationEntity
@@ -208,7 +208,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public void AddKafkaConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void AddAsync_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
                 KafkaConfigurationEntity? invalidEntity = null;
@@ -224,13 +224,13 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         public class When_Update_KafkaConfiguration : KafkaConfigurationRepositoryTests
         {
             [SetUp]
-            public override void Setup()
+            public override void SetUp()
             {
-                base.Setup();
+                base.SetUp();
             }
 
             [Test]
-            public async Task UpdateKafkaConfigurationAsync_SavesToDatabase()
+            public async Task Update_SavesToDatabase()
             {
                 // Arrange
                 var entity = new KafkaConfigurationEntity
@@ -261,7 +261,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public void UpdateKafkaConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void Update_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
                 KafkaConfigurationEntity? invalidEntity = null;
@@ -277,13 +277,13 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         public class When_Delete_KafkaConfiguration : KafkaConfigurationRepositoryTests
         {
             [SetUp]
-            public override void Setup()
+            public override void SetUp()
             {
-                base.Setup();
+                base.SetUp();
             }
 
             [Test]
-            public async Task DeleteKafkaConfigurationAsync_RemovesFromDatabase()
+            public async Task Delete_RemovesFromDatabase()
             {
                 // Arrange
                 var entity = new KafkaConfigurationEntity
@@ -308,7 +308,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public void DeleteKafkaConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void Delete_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
                 KafkaConfigurationEntity? invalidEntity = null;

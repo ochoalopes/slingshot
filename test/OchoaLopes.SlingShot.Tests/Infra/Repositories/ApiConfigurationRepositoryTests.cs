@@ -13,16 +13,16 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
     [TestFixture]
     public abstract class ApiConfigurationRepositoryTests
     {
-        private Mock<ILogger<IRepository<ApiConfigurationEntity>>> _loggerMock;
+        private Mock<ILogger<IApiConfigurationRepository>> _loggerMock;
         private DbContext _context;
         private IApiConfigurationRepository _sut;
 
         [SetUp]
-        public virtual void Setup()
+        public virtual void SetUp()
         {
             var contextOptions = DbContextHelper.CreateNewContextOptions();
             _context = new SlingShotContext(contextOptions);
-            _loggerMock = new Mock<ILogger<IRepository<ApiConfigurationEntity>>>();
+            _loggerMock = new Mock<ILogger<IApiConfigurationRepository>>();
             _sut = new ApiConfigurationRepository(_loggerMock.Object, _context);
         }
 
@@ -36,13 +36,13 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         public class When_Search_ApiConfiguration : ApiConfigurationRepositoryTests
         {
             [SetUp]
-            public override void Setup()
+            public override void SetUp()
             {
-                base.Setup();
+                base.SetUp();
             }
 
             [Test]
-            public async Task GetApiConfigurationAsync_ReturnsAllEntities()
+            public async Task GetAllAsync_ReturnsAllEntities()
             {
                 // Arrange
                 var entity1 = new ApiConfigurationEntity
@@ -71,7 +71,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task GetApiConfigurationAsync_WithFilter_ReturnsFilteredEntities()
+            public async Task Get_WithFilter_ReturnsFilteredEntities()
             {
                 // Arrange
                 var entity1 = new ApiConfigurationEntity
@@ -101,7 +101,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task GetApiConfigurationAsync_WithOrderBy_ReturnsOrderedEntities()
+            public async Task Get_WithOrderBy_ReturnsOrderedEntities()
             {
                 // Arrange
                 var entity1 = new ApiConfigurationEntity
@@ -131,7 +131,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task GetApiConfigurationAsync_ReturnsEntityById()
+            public async Task GetByIdAsync_ReturnsEntityById()
             {
                 // Arrange
                 var entity1 = new ApiConfigurationEntity
@@ -164,13 +164,13 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         public class When_Add_ApiConfiguration : ApiConfigurationRepositoryTests
         {
             [SetUp]
-            public override void Setup()
+            public override void SetUp()
             {
-                base.Setup();
+                base.SetUp();
             }
 
             [Test]
-            public async Task AddApiConfigurationAsync_SavesToDatabase()
+            public async Task AddAsync_SavesToDatabase()
             {
                 // Arrange
                 var entity = new ApiConfigurationEntity
@@ -190,7 +190,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public void AddApiConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void AddAsync_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
                 ApiConfigurationEntity? invalidEntity = null;
@@ -206,13 +206,13 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         public class When_Update_ApiConfiguration : ApiConfigurationRepositoryTests
         {
             [SetUp]
-            public override void Setup()
+            public override void SetUp()
             {
-                base.Setup();
+                base.SetUp();
             }
 
             [Test]
-            public async Task UpdateApiConfigurationAsync_SavesToDatabase()
+            public async Task Update_SavesToDatabase()
             {
                 // Arrange
                 var entity = new ApiConfigurationEntity
@@ -241,7 +241,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public void UpdateApiConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void Update_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
                 ApiConfigurationEntity? invalidEntity = null;
@@ -257,13 +257,13 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         public class When_Delete_ApiConfiguration : ApiConfigurationRepositoryTests
         {
             [SetUp]
-            public override void Setup()
+            public override void SetUp()
             {
-                base.Setup();
+                base.SetUp();
             }
 
             [Test]
-            public async Task DeleteApiConfigurationAsync_RemovesFromDatabase()
+            public async Task Delete_RemovesFromDatabase()
             {
                 // Arrange
                 var entity = new ApiConfigurationEntity
@@ -286,7 +286,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public void DeleteApiConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void Delete_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
                 ApiConfigurationEntity? invalidEntity = null;

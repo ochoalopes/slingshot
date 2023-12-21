@@ -10,6 +10,8 @@ namespace OchoaLopes.SlingShot.Infra.UoW
         private bool _disposed = false;
         private readonly ILogger<UnitOfWork> _logger;
         private readonly DbContext _context;
+
+        private IDbContextTransaction? _dbContextTransaction;
         #endregion
 
         #region Public Methods
@@ -19,35 +21,38 @@ namespace OchoaLopes.SlingShot.Infra.UoW
             _context = context;
         }
 
-        public IDbContextTransaction CreateTransaction()
+        public void CreateTransaction()
         {
             _logger.BeginScope("Creating transaction");
-            return _context.Database.BeginTransaction();
+
+            _dbContextTransaction = _context.Database.BeginTransaction();
         }
 
-        public async Task CommitAsync(IDbContextTransaction dbContextTransaction)
+        public async Task CommitAsync()
         {
             try
             {
                 _logger.LogInformation("Commiting transaction");
-                await dbContextTransaction.CommitAsync();
+                await _dbContextTransaction.CommitAsync();
             }
             catch
             {
-                await RollbackAsync(dbContextTransaction);
+                await RollbackAsync();
                 throw;
             }
         }
 
-        public async Task RollbackAsync(IDbContextTransaction dbContextTransaction)
+        public async Task RollbackAsync()
         {
             _logger.LogInformation("Rolling back transaction");
-            await dbContextTransaction.RollbackAsync();
+
+            await _dbContextTransaction.RollbackAsync();
         }
 
         public async Task SaveAsync()
         {
             _logger.LogInformation("Saving changes to database");
+
             await _context.SaveChangesAsync();
         }
 

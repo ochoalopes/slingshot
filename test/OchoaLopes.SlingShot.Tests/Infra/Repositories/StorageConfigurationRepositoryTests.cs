@@ -13,16 +13,16 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
     [TestFixture]
     public class StorageConfigurationRepositoryTests
     {
-        private Mock<ILogger<IRepository<StorageConfigurationEntity>>> _loggerMock;
+        private Mock<ILogger<IStorageConfigurationRepository>> _loggerMock;
         private DbContext _context;
         private IStorageConfigurationRepository _sut;
 
         [SetUp]
-        public virtual void Setup()
+        public virtual void SetUp()
         {
             var contextOptions = DbContextHelper.CreateNewContextOptions();
             _context = new SlingShotContext(contextOptions);
-            _loggerMock = new Mock<ILogger<IRepository<StorageConfigurationEntity>>>();
+            _loggerMock = new Mock<ILogger<IStorageConfigurationRepository>>();
             _sut = new StorageConfigurationRepository(_loggerMock.Object, _context);
         }
 
@@ -36,13 +36,13 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         public class When_Search_StorageConfiguration : StorageConfigurationRepositoryTests
         {
             [SetUp]
-            public override void Setup()
+            public override void SetUp()
             {
-                base.Setup();
+                base.SetUp();
             }
 
             [Test]
-            public async Task GetStorageConfigurationAsync_ReturnsAllEntities()
+            public async Task GetAllAsync_ReturnsAllEntities()
             {
                 // Arrange
                 var entity1 = new StorageConfigurationEntity
@@ -77,7 +77,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task GetStorageConfigurationAsync_WithFilter_ReturnsFilteredEntities()
+            public async Task Get_WithFilter_ReturnsFilteredEntities()
             {
                 // Arrange
                 var entity1 = new StorageConfigurationEntity
@@ -113,7 +113,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task GetStorageConfigurationAsync_WithOrderBy_ReturnsOrderedEntities()
+            public async Task Get_WithOrderBy_ReturnsOrderedEntities()
             {
                 // Arrange
                 var entity1 = new StorageConfigurationEntity
@@ -149,7 +149,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public async Task GetStorageConfigurationAsync_ReturnsEntityById()
+            public async Task GetByIdAsync_ReturnsEntityById()
             {
                 // Arrange
                 var entity1 = new StorageConfigurationEntity
@@ -188,13 +188,13 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         public class When_Add_StorageConfiguration : StorageConfigurationRepositoryTests
         {
             [SetUp]
-            public override void Setup()
+            public override void SetUp()
             {
-                base.Setup();
+                base.SetUp();
             }
 
             [Test]
-            public async Task AddStorageConfigurationAsync_SavesToDatabase()
+            public async Task AddAsync_SavesToDatabase()
             {
                 // Arrange
                 var entity = new StorageConfigurationEntity
@@ -217,7 +217,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public void AddApiConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void AddAsync_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
                 StorageConfigurationEntity? invalidEntity = null;
@@ -233,13 +233,13 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         public class When_Update_StorageConfiguration : StorageConfigurationRepositoryTests
         {
             [SetUp]
-            public override void Setup()
+            public override void SetUp()
             {
-                base.Setup();
+                base.SetUp();
             }
 
             [Test]
-            public async Task UpdateStorageConfigurationAsync_SavesToDatabase()
+            public async Task Update_SavesToDatabase()
             {
                 // Arrange
                 var entity = new StorageConfigurationEntity
@@ -271,7 +271,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public void UpdateApiConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void Update_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
                 StorageConfigurationEntity? invalidEntity = null;
@@ -287,13 +287,13 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
         public class When_Delete_StorageConfiguration : StorageConfigurationRepositoryTests
         {
             [SetUp]
-            public override void Setup()
+            public override void SetUp()
             {
-                base.Setup();
+                base.SetUp();
             }
 
             [Test]
-            public async Task DeleteStorageConfigurationAsync_RemovesFromDatabase()
+            public async Task Delete_RemovesFromDatabase()
             {
                 // Arrange
                 var entity = new StorageConfigurationEntity
@@ -319,7 +319,7 @@ namespace OchoaLopes.SlingShot.Tests.Infra.Repositories
             }
 
             [Test]
-            public void DeleteStorageConfigurationAsync_WithNullEntity_ThrowsValidationException()
+            public void Delete_WithNullEntity_ThrowsValidationException()
             {
                 // Arrange
                 StorageConfigurationEntity? invalidEntity = null;
